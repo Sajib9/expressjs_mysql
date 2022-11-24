@@ -23,5 +23,8 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.20",
     "toastify": "^2.0.1"
+  },
+  "devDependencies": {
+    "standard": "^17.0.0"
   }
 }
