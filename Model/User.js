@@ -11,7 +11,7 @@ const addUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      image_path: req.files[0].filename
+      image_path: req.files[0].filename,
     })
     // resolve(userInsert);
 
@@ -19,7 +19,7 @@ const addUser = async (req, res) => {
     return {
       message: 'Insert successful',
       status: 201,
-      data: userInsert
+      data: userInsert,
     }
   } catch (error) {
     // res.send(error.message);
@@ -28,4 +28,35 @@ const addUser = async (req, res) => {
   }
 }
 
-module.exports = { addUser }
+const getUser = async (req, res) => {
+  try {
+    const users = await knex('users').select('*')
+
+    return {
+      data: users,
+      status: 200,
+    }
+  } catch (error) {
+    return error
+  }
+}
+
+const updateUser = async (req, res) => {
+  try {
+    // console.log(req.query.id); query params
+    // console.log(req.params.id); (:id)
+    const id = req.query.id
+ 
+    const user = await knex('users').where('id', id).update('name', 'sajib');
+
+    return {
+      data: user,
+      status: 200,
+      message: 'Update Successfull',
+    }
+  } catch (err) {
+    return err
+  }
+}
+
+module.exports = { addUser, getUser, updateUser }
